@@ -38,15 +38,9 @@ class Plugin
             '})(window,document,"script","'.$scriptpath.'","myUniqueJavaScriptFunctionNameWhichWillBeChangedSoon");</script>';
     }
 
-    public function initLazyLoad()
+    public function initLazyLoad($playerID)
     {
-        return '<script>
-
-        myUniqueJavaScriptFunctionNameWhichWillBeChangedSoon(function(test) {
-          console.log(test);
-        });
-
-        </script>';
+        return '<script>myUniqueJavaScriptFunctionNameWhichWillBeChangedSoon(["'.$playerID.'"]);</script>';
     }
 
     public function lazyLoadVideo($html, $url, $args)
@@ -55,13 +49,15 @@ class Plugin
         switch ($host) {
             case 'vimeo.com':
             case 'www.vimeo.com':
-                $html = str_replace(' src="', ' data-lazyload data-src="', $html).$this->initLazyLoad();
+                $uniqueID = uniqid();
+                $html = str_replace(' src="', ' data-lazyload="'.$uniqueID.'" data-src="', $html).$this->initLazyLoad($uniqueID);
                 break;
 
             case 'youtube.com':
             case 'www.youtube.com':
             case 'youtu.be':
-                $html = str_replace(' src="', ' data-lazyload data-src="', $html).$this->initLazyLoad();
+                $uniqueID = uniqid();
+                $html = str_replace(' src="', ' data-lazyload="'.$uniqueID.'" data-src="', $html).$this->initLazyLoad($uniqueID);
                 break;
         }
 
