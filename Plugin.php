@@ -12,10 +12,10 @@ namespace MHM\Layzyloadvideo;
 
 class Plugin
 {
-    public $version = '1.1';
-
     public function __construct()
     {
+        $this->version = $this->pluginVersion();
+
         add_filter('embed_oembed_html', array($this, 'lazyLoadVideo'), 10, 3);
         add_action('wp_head', array($this, 'lazyloader'));
     }
@@ -28,6 +28,25 @@ class Plugin
         }
     }
 
+    /**
+     * Returns current plugin version.
+     *
+     * @return string Plugin version
+     */
+    public function pluginVersion()
+    {
+        if (!function_exists('get_plugins')) {
+            require_once ABSPATH.'wp-admin/includes/plugin.php';
+        }
+        $plugin_folder = get_plugins('/'.plugin_basename(dirname(__FILE__)));
+        $plugin_file = basename((__FILE__));
+
+        return $plugin_folder[$plugin_file]['Version'];
+    }
+
+    /**
+     * Add lazyloader JavaScript class to wp_head.
+     */
     public function lazyloader()
     {
         $scriptpath = plugins_url('Resources/Public/JavaScript/lazyloader.js', __FILE__);
