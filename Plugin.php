@@ -4,7 +4,7 @@ Plugin Name: Lazy load video players
 Plugin URI: https://github.com/mhmli/mhm-lazyloadvideo
 Description: Work in progress.
 Author: Mark Howells-Mead
-Version: 0.0.1
+Version: 1.0.0
 Author URI: https://markweb.ch/
 */
 
@@ -16,7 +16,7 @@ class Plugin
     {
         $this->version = $this->pluginVersion();
 
-        add_filter('embed_oembed_html', array($this, 'lazyLoadVideo'), 10, 3);
+        add_filter('embed_oembed_html', array($this, 'lazyLoadVideo'), 10, 2);
         add_action('wp_head', array($this, 'lazyloader'));
     }
 
@@ -45,16 +45,18 @@ class Plugin
     }
 
     /**
-     * Add lazyloader JavaScript class to wp_head.
+     * Add lazyloader JavaScript class to wp_head. The function/object 'lazyloadvideo'
+     * is available instantly and the script is loaded dynamically. As soon as the
+     * script loads, it executes.
      */
     public function lazyloader()
     {
-        $scriptpath = plugins_url('Resources/Public/JavaScript/lazyloader.js', __FILE__);
+        $scriptpath = plugins_url('Resources/Public/JavaScript/mhmlazyloadvideo.min.js', __FILE__);
 
-        echo '<script>(function(i,s,o,g,r,a,m){i["FrpCustomizedvideoembed"]=r;i[r]=i[r]||function(){'.
+        echo '<script>(function(i,s,o,g,r,a,m){i["mhmlazyloadvideo_script"]=r;i[r]=i[r]||function(){'.
             '(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),'.
             'm=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)'.
-            '})(window,document,"script","'.$scriptpath.'","myUniqueJavaScriptFunctionNameWhichWillBeChangedSoon");</script>';
+            '})(window,document,"script","'.$scriptpath.'","mhmlazyloadvideo");</script>';
     }
 
     /**
@@ -66,7 +68,7 @@ class Plugin
      */
     public function initLazyLoad($playerID)
     {
-        return '<script data-plugin="mhm_lazyloadvideo">myUniqueJavaScriptFunctionNameWhichWillBeChangedSoon(["'.$playerID.'"]);</script>';
+        return '<script data-plugin="mhm_lazyloadvideo">mhmlazyloadvideo("'.$playerID.'");</script>';
     }
 
     /**
@@ -78,7 +80,7 @@ class Plugin
      *
      * @return string The modified HTML string
      */
-    public function lazyLoadVideo($html, $url, $args)
+    public function lazyLoadVideo($html, $url)
     {
         $html_was = '<noscript>'.$html.'</noscript>';
 
@@ -87,14 +89,14 @@ class Plugin
             case 'vimeo.com':
             case 'www.vimeo.com':
                 $uniqueID = uniqid();
-                $html = str_replace(' src="', ' data-lazyload="'.$uniqueID.'" data-src="', $html).$this->initLazyLoad($uniqueID).$html_was;
+                $html = str_replace(' src="', ' data-mhmlazyloadvideo="'.$uniqueID.'" data-src="', $html).$this->initLazyLoad($uniqueID).$html_was;
                 break;
 
             case 'youtube.com':
             case 'www.youtube.com':
             case 'youtu.be':
                 $uniqueID = uniqid();
-                $html = str_replace(' src="', ' data-lazyload="'.$uniqueID.'" data-src="', $html).$this->initLazyLoad($uniqueID).$html_was;
+                $html = str_replace(' src="', ' data-mhmlazyloadvideo="'.$uniqueID.'" data-src="', $html).$this->initLazyLoad($uniqueID).$html_was;
                 break;
         }
 
