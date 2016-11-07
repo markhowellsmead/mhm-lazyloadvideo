@@ -45,7 +45,7 @@
                 if (element.length) {
                     var el = element[0];
                     if (isElementInViewport(el)){
-                        el.setAttribute('src', el.dataset.src);
+                        el.setAttribute('src', el.getAttribute('data-src'));
                         el.removeAttribute('data-src');
                         el.removeAttribute('data-mhmlazyloadvideo');
                     }

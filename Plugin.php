@@ -4,7 +4,7 @@ Plugin Name: Lazy load video players
 Plugin URI: https://github.com/mhmli/mhm-lazyloadvideo
 Description: Work in progress.
 Author: Mark Howells-Mead
-Version: 1.0.0
+Version: 1.0.1
 Author URI: https://markweb.ch/
 */
 
