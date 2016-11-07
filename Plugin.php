@@ -57,11 +57,27 @@ class Plugin
             '})(window,document,"script","'.$scriptpath.'","myUniqueJavaScriptFunctionNameWhichWillBeChangedSoon");</script>';
     }
 
+    /**
+     * Add inline script to register lazyload init for a single video player.
+     *
+     * @param string $playerID A unique ID string for the current player.
+     *
+     * @return string The script tage which will initialize the current player.
+     */
     public function initLazyLoad($playerID)
     {
         return '<script data-plugin="mhm_lazyloadvideo">myUniqueJavaScriptFunctionNameWhichWillBeChangedSoon(["'.$playerID.'"]);</script>';
     }
 
+    /**
+     * Parses the HTML of the oEmbed tag and returns a modified version.
+     *
+     * @param string $html The original oEmbed HTML.
+     * @param string $url  The URL of the source video, as added to the editor.
+     * @param array  $args An array of arguments passed to the oEmbed function.
+     *
+     * @return string The modified HTML string
+     */
     public function lazyLoadVideo($html, $url, $args)
     {
         $html_was = '<noscript>'.$html.'</noscript>';
