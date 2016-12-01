@@ -23,6 +23,11 @@ Please note that this plugin will not work in server environments running PHP ve
 
 == Changelog ==
 
+= 1.1.0 =
+* Revises code to additionally hook the WordPress ``oembed_result`` filter, so that videos pulled in via ``wp_oembed_get`` also get parsed.
+* Spellcheck secondary namespace.
+* This README is now .txt, for compatability with the WordPress Plugin Directory.
+
 = 1.0.2 =
 * Add a proper README to the plugin.
 
