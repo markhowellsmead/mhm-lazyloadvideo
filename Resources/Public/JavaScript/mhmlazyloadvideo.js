@@ -10,6 +10,8 @@
 
 (function() {
 
+    var mhmlazyloadvideo;
+
     /**
      * Find out whether the top edge of the element is above the bottom
      * of the browser window, and the left edge is to the left of the right
@@ -36,15 +38,12 @@
      *
      */
     function maybeLoadVideos() {
-        if(mhmlazyloadvideo.q && mhmlazyloadvideo.q.length){
-            var doc = document.documentElement;
-            var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-            var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+        if (mhmlazyloadvideo.q && mhmlazyloadvideo.q.length) {
             for (var i = 0, len = mhmlazyloadvideo.q.length; i < len; i++) {
                 var element = document.querySelectorAll('[data-mhmlazyloadvideo="' + mhmlazyloadvideo.q[i][0] + '"]');
                 if (element.length) {
                     var el = element[0];
-                    if (isElementInViewport(el)){
+                    if (isElementInViewport(el)) {
                         el.setAttribute('src', el.getAttribute('data-src'));
                         el.removeAttribute('data-src');
                         el.removeAttribute('data-mhmlazyloadvideo');
@@ -55,9 +54,10 @@
     }
 
     /**
-     * Run the loader immediately, then again every time the window is scrolled.
+     * Run the loader immediately, then when the page has loaded, then again every time the window is scrolled.
      */
     maybeLoadVideos();
+    window.addEventListener('load', maybeLoadVideos);
     window.addEventListener('scroll', maybeLoadVideos);
 
 })();

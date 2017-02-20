@@ -23,6 +23,10 @@ Please note that this plugin will not work in server environments running PHP ve
 
 == Changelog ==
 
+= 1.2.0 =
+* JavaScript syntax improvements.
+* Call initialization on load, to cover a case where direct initialization happens before the page is loaded.
+
 = 1.1.0 =
 * Revises code to additionally hook the WordPress ``oembed_result`` filter, so that videos pulled in via ``wp_oembed_get`` also get parsed.
 * Spellcheck secondary namespace.
