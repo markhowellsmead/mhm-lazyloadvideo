@@ -4,7 +4,7 @@ Plugin Name: Lazy load video players
 Plugin URI: https://github.com/mhmli/mhm-lazyloadvideo
 Description: Modifies the HTML output of any video players embedded in the content area using the oEmbed technique. Any video player which is included on the page will only be loaded if/when it is visible within the current browser window. Requires JavaScript. The original player will be displayed if JavaScript is inactive on the page.
 Author: Mark Howells-Mead
-Version: 1.3.0
+Version: 1.2.0
 Author URI: https://markweb.ch/
 */
 
@@ -18,7 +18,7 @@ class Plugin
 
         add_filter('embed_oembed_html', array($this, 'lazyLoadVideo'), 10, 2);
         add_filter('oembed_result', array($this, 'lazyLoadVideo'), 10, 2);
-        add_action('wp_footer', array($this, 'lazyloader'));
+        add_action('wp_head', array($this, 'lazyloader'));
     }
 
     public function dump($var, $die = false)
