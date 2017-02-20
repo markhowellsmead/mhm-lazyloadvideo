@@ -8,9 +8,9 @@
  * Since 7.1.2016 | mhm
  */
 
-(function() {
+var mhmlazyloadvideo;
 
-    var mhmlazyloadvideo;
+(function() {
 
     /**
      * Find out whether the top edge of the element is above the bottom
@@ -44,6 +44,9 @@
                 if (element.length) {
                     var el = element[0];
                     if (isElementInViewport(el)) {
+                        if (window.console) {
+                            window.console.info('Lazy load: ' + el.getAttribute('data-src'));
+                        }
                         el.setAttribute('src', el.getAttribute('data-src'));
                         el.removeAttribute('data-src');
                         el.removeAttribute('data-mhmlazyloadvideo');
