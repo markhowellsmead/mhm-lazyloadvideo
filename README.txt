@@ -3,7 +3,7 @@ Contributors: markhowellsmead
 Donate link: https://paypal.me/mhmli
 Tags: video, video player, lazy load, performance
 Requires at least: 4.6.0
-Tested up to: 4.6.1
+Tested up to: 4.7.2
 Stable tag: trunk
 
 Any video player which is included on the page will only be loaded if/when it is visible within the current browser window. Requires JavaScript and PHP 5.3.
@@ -22,6 +22,18 @@ Please note that this plugin will not work in server environments running PHP ve
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Changelog ==
+
+= 1.3.2 =
+* Run script on `DOMContentLoaded` as well, in case `window.addEventListener('load')` is delayed by slow assets.
+* Confirm functionality in WordPress 4.7.2.
+
+= 1.3.1 =
+* Load the script in the header. It's loaded asynchronously, so there are no performance issues.
+
+= 1.3.0 =
+* Load the script in the footer, not in the header.
+* Add console logger command for debugging.
+* Add version number to script-embedding URL.
 
 = 1.2.0 =
 * JavaScript syntax improvements.

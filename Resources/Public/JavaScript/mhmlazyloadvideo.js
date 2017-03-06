@@ -60,6 +60,7 @@ var mhmlazyloadvideo;
      * Run the loader immediately, then when the page has loaded, then again every time the window is scrolled.
      */
     maybeLoadVideos();
+    document.addEventListener('DOMContentLoaded', maybeLoadVideos);
     window.addEventListener('load', maybeLoadVideos);
     window.addEventListener('scroll', maybeLoadVideos);
 
