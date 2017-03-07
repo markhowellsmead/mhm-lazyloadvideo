@@ -6,13 +6,13 @@ Requires at least: 4.6.0
 Tested up to: 4.7.2
 Stable tag: trunk
 
-Any video player which is included on the page will only be loaded if/when it is visible within the current browser window. Requires JavaScript and PHP 5.3.
+Any video player which is included on the page will only be loaded if/when it is visible within the current browser window.
 
 == Description ==
 
 Modifies the HTML output of any video players which have been embedded in the content area or in the site using the oEmbed technique. Any video player which is included on the page will only be loaded if/when it is/becomes visible within the current browser window. 
 
-Requires JavaScript. The original player will be displayed if JavaScript is inactive on the page.
+This plugin relies on JavaScript in the frontend. The original player will be displayed (not lazy-loaded) if JavaScript is inactive on the page.
 
 Please note that this plugin will not work in server environments running PHP versions older than 5.3.
 
@@ -22,6 +22,9 @@ Please note that this plugin will not work in server environments running PHP ve
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Changelog ==
+
+= 1.3.3 =
+* Minor amendment to README.
 
 = 1.3.2 =
 * Run script on `DOMContentLoaded` as well, in case `window.addEventListener('load')` is delayed by slow assets.
